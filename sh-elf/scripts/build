@@ -1,0 +1,217 @@
+#!/bin/sh
+
+# Copyright (c) 2012-2016
+# See LICENSE for details.
+#
+# Dave Murphy <davem@devkitpro.org>
+# Israel Jacquez <mrkotfw@gmail.com>
+
+# Build and install Binutils
+mkdir -p "${BUILD_SRC_DIR}/${SH_TARGET}/binutils"
+cd "${BUILD_SRC_DIR}/${SH_TARGET}/binutils"
+if [ ! -f "${BUILD_SRC_DIR}/${SH_TARGET}/configured-binutils" ]; then
+    message "Configuring Binutils"
+    CFLAGS="" LDFLAGS="" ../"${BINUTILS_SRC_DIR}"/configure \
+        --disable-werror \
+        --disable-debug \
+        --disable-nls \
+        --disable-shared \
+        --disable-threads \
+        --prefix="${BUILD_INSTALL_DIR}/${SH_TARGET}" \
+        --target="${SH_TARGET}" \
+        --with-gcc \
+        --with-gnu-as \
+        --with-gnu-ld \
+        --with-stabs 1>> "${BUILD_SRC_DIR}/binutils-${SH_TARGET}.log" 2>&1 \
+        || panic "See '${BUILD_SRC_DIR}/binutils-${SH_TARGET}.log'" 1
+    touch "${BUILD_SRC_DIR}/${SH_TARGET}/configured-binutils"
+fi
+
+if [ ! -f "${BUILD_SRC_DIR}/${SH_TARGET}/built-binutils" ]; then
+    message "Building Binutils"
+    "${MAKE}" -j ${BUILD_MAKE_JOBS} 1>> "${BUILD_SRC_DIR}/binutils-${SH_TARGET}.log" 2>&1 || \
+        panic "See '${BUILD_SRC_DIR}/binutils-${SH_TARGET}.log'" 1
+    touch "${BUILD_SRC_DIR}/${SH_TARGET}/built-binutils"
+fi
+
+if [ ! -f "${BUILD_SRC_DIR}/${SH_TARGET}/installed-binutils" ]; then
+    message "Installing Binutils"
+    "${MAKE}" -j ${BUILD_MAKE_JOBS} install 1>> "${BUILD_SRC_DIR}/binutils-${SH_TARGET}.log" 2>&1 || \
+        panic "See '${BUILD_SRC_DIR}/binutils-${SH_TARGET}.log'" 1
+    touch "${BUILD_SRC_DIR}/${SH_TARGET}/installed-binutils"
+fi
+cd "${OLDPWD}"
+
+
+# Build and install just the C compiler
+mkdir -p "${BUILD_SRC_DIR}/${SH_TARGET}/gcc"
+cd "${BUILD_SRC_DIR}/${SH_TARGET}/gcc"
+if [ ! -f "${BUILD_SRC_DIR}/${SH_TARGET}/configured-gcc" ]; then
+    message "Configuring GCC"
+    CFLAGS="" \
+    LDFLAGS="" \
+    CFLAGS_FOR_TARGET="-O2 -m2 -mb -fomit-frame-pointer" \
+    LDFLAGS_FOR_TARGET="" ../"${GCC_SRC_DIR}"/configure \
+        --disable-cld \
+        --disable-initfini-array \
+        --disable-largefile \
+        --disable-libstdcxx-pch \
+        --disable-multilib \
+        --disable-multilib \
+        --disable-nls \
+        --disable-objc-gc \
+        --disable-rpath \
+        --disable-shared \
+        --disable-threads \
+        --disable-tls \
+        --disable-win32-registry \
+        --enable-decimal-float=no \
+        --disable-frame-pointer \
+        --enable-languages=c,c++ \
+        --enable-static \
+        --prefix="${BUILD_INSTALL_DIR}/${SH_TARGET}" \
+        --program-prefix="${SH_TARGET}-" \
+        --target="${SH_TARGET}" \
+        --with-endian=big \
+        --with-cpu=m2 \
+        --disable-libquadmath \
+        --disable-libquadmath-support \
+        --disable-libvtv \
+        --disable-libgomp \
+        --disable-libssp \
+        --disable-libada \
+        --with-gcc \
+        --with-gnu-as \
+        --with-gnu-ld \
+        --without-dwarf2 \
+        --with-newlib 1>> "${BUILD_SRC_DIR}/gcc-${SH_TARGET}.log" 2>&1 \
+        || panic "See '${BUILD_SRC_DIR}/gcc-${SH_TARGET}.log'" 1
+    touch "${BUILD_SRC_DIR}/${SH_TARGET}/configured-gcc"
+fi
+
+if [ ! -f "${BUILD_SRC_DIR}/${SH_TARGET}/built-gcc" ]; then
+    message "Building GCC"
+    "${MAKE}" -j ${BUILD_MAKE_JOBS} all-gcc 1>> "${BUILD_SRC_DIR}/gcc-${SH_TARGET}.log" 2>&1 \
+        || panic "See '${BUILD_SRC_DIR}/gcc-${SH_TARGET}.log'" 1
+    touch "${BUILD_SRC_DIR}/${SH_TARGET}/built-gcc"
+fi
+
+if [ ! -f "${BUILD_SRC_DIR}/${SH_TARGET}/installed-gcc" ]; then
+    message "Installing GCC"
+    "${MAKE}" -j ${BUILD_MAKE_JOBS} install-gcc 1>> "${BUILD_SRC_DIR}/gcc-${SH_TARGET}.log" 2>&1 \
+        || panic "See '${BUILD_SRC_DIR}/gcc-${SH_TARGET}.log'" 1
+    touch "${BUILD_SRC_DIR}/${SH_TARGET}/installed-gcc"
+fi
+unset "CFLAGS"
+cd "${OLDPWD}"
+
+
+# Build and install newlib
+mkdir -p "${BUILD_SRC_DIR}/${SH_TARGET}/newlib"
+cd "${BUILD_SRC_DIR}/${SH_TARGET}/newlib"
+if [ ! -f "${BUILD_SRC_DIR}/${SH_TARGET}/configured-newlib" ]; then
+    message "Configuring Newlib"
+    CFLAGS="-O2 -fomit-frame-pointer -ffast-math -fstrict-aliasing" \
+        ../"${NEWLIB_SRC_DIR}"/configure \
+        --disable-bootstrap \
+        --disable-build-poststage1-with-cxx \
+        --disable-build-with-cxx \
+        --disable-cloog-version-check \
+        --disable-dependency-tracking \
+        --disable-libada \
+        --disable-libquadmath \
+        --disable-libquadmath-support \
+        --disable-libssp \
+        --disable-maintainer-mode \
+        --disable-malloc-debugging \
+        --disable-multilib \
+        --disable-newlib-atexit-alloc \
+        --disable-newlib-hw-fp \
+        --disable-newlib-iconv \
+        --disable-newlib-io-float \
+        --disable-newlib-io-long-double \
+        --disable-newlib-io-long-long \
+        --disable-newlib-mb \
+        --disable-newlib-multithread \
+        --disable-newlib-register-fini \
+        --disable-newlib-supplied-syscalls \
+        --disable-objc-gc \
+        --enable-newlib-io-c99-formats \
+        --enable-newlib-io-pos-args \
+        --enable-newlib-reent-small \
+        --prefix="${BUILD_INSTALL_DIR}/${SH_TARGET}" \
+        --target="${SH_TARGET}" \
+        --with-endian=big \
+        --with-cpu=m2 \
+        --without-cloog \
+        --without-gmp \
+        --without-mpc \
+        --without-mpfr 1>> "${BUILD_SRC_DIR}/newlib-${SH_TARGET}.log" 2>&1 \
+        || panic "See '${BUILD_SRC_DIR}/newlib-${SH_TARGET}.log'" 1
+        touch "${BUILD_SRC_DIR}/${SH_TARGET}/configured-newlib"
+fi
+
+if [ ! -f "${BUILD_SRC_DIR}/${SH_TARGET}/built-newlib" ]; then
+    message "Building Newlib"
+    "${MAKE}" -j ${BUILD_MAKE_JOBS} 1>> "${BUILD_SRC_DIR}/newlib-${SH_TARGET}.log" 2>&1 || \
+        panic "See '${BUILD_SRC_DIR}/newlib-${SH_TARGET}.log'" 1
+    touch "${BUILD_SRC_DIR}/${SH_TARGET}/built-newlib"
+fi
+
+if [ ! -f "${BUILD_SRC_DIR}/${SH_TARGET}/installed-newlib" ]; then
+    message "Installing Newlib"
+    "${MAKE}" -j ${BUILD_MAKE_JOBS} install 1>> "${BUILD_SRC_DIR}/newlib-${SH_TARGET}.log" 2>&1 || \
+        panic "See '${BUILD_SRC_DIR}/newlib-${SH_TARGET}.log'" 1
+    touch "${BUILD_SRC_DIR}/${SH_TARGET}/installed-newlib"
+fi
+cd "${OLDPWD}"
+
+
+# Build and install the final compiler
+cd "${BUILD_SRC_DIR}/${SH_TARGET}/gcc"
+if [ ! -f "${BUILD_SRC_DIR}/${SH_TARGET}/built-g++" ]; then
+    message "Building GCC"
+    "${MAKE}" -j ${BUILD_MAKE_JOBS} 1>> "${BUILD_SRC_DIR}/gcc-${SH_TARGET}.log" 2>&1 || \
+        panic "See '${BUILD_SRC_DIR}/gcc-${SH_TARGET}.log'" 1
+    touch "${BUILD_SRC_DIR}/${SH_TARGET}/built-g++"
+fi
+
+if [ ! -f "${BUILD_SRC_DIR}/${SH_TARGET}/installed-g++" ]; then
+    message "Installing GCC"
+    ("${MAKE}" -j ${BUILD_MAKE_JOBS} install) 1>> "${BUILD_SRC_DIR}/gcc-${SH_TARGET}.log" 2>&1 || \
+        panic "See '${BUILD_SRC_DIR}/gcc-${SH_TARGET}.log'" 1
+    touch "${BUILD_SRC_DIR}/${SH_TARGET}/installed-g++"
+fi
+cd "${OLDPWD}"
+
+
+# Build and install GDB
+if [[ "${OPTION_ENABLE_GDB}" == "yes" ]]; then
+    mkdir -p "${BUILD_SRC_DIR}/${SH_TARGET}/gdb"
+    cd "${BUILD_SRC_DIR}/${SH_TARGET}/gdb"
+    if [ ! -f "${BUILD_SRC_DIR}/${SH_TARGET}/configured-gdb" ]; then
+        message "Configuring GDB"
+        CFLAGS="" LDFLAGS="" ../"${GDB_SRC_DIR}"/configure \
+            --disable-nls \
+            --disable-werror \
+            --prefix="${BUILD_INSTALL_DIR}/${SH_TARGET}" \
+            --target="${SH_TARGET}" 1>> "${BUILD_SRC_DIR}/gdb-${SH_TARGET}.log" 2>&1 \
+            || panic "See '${BUILD_SRC_DIR}/gdb-${SH_TARGET}.log'" 1
+        touch "${BUILD_SRC_DIR}/${SH_TARGET}/configured-gdb"
+    fi
+
+    if [ ! -f "${BUILD_SRC_DIR}/${SH_TARGET}/built-gdb" ]; then
+        message "Building GDB"
+        "${MAKE}" -j ${BUILD_MAKE_JOBS} 1>> "${BUILD_SRC_DIR}/gdb-${SH_TARGET}.log" 2>&1 || \
+            panic "See '${BUILD_SRC_DIR}/gdb-${SH_TARGET}.log'" 1
+        touch "${BUILD_SRC_DIR}/${SH_TARGET}/built-gdb"
+    fi
+
+    if [ ! -f "${BUILD_SRC_DIR}/${SH_TARGET}/installed-gdb" ]; then
+        message "Installing GDB"
+        "${MAKE}" -j ${BUILD_MAKE_JOBS} install 1>> "${BUILD_SRC_DIR}/gdb-${SH_TARGET}.log" 2>&1 || \
+            panic "See '${BUILD_SRC_DIR}/gdb-${SH_TARGET}.log'" 1
+        touch "${BUILD_SRC_DIR}/${SH_TARGET}/installed-gdb"
+    fi
+    cd "${OLDPWD}"
+fi
