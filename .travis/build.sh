@@ -30,7 +30,7 @@ git checkout -q -f ${TRAVIS_COMMIT}
 
 cp config.in config
 
-change_file_value "config" "BUILD_HOST" "x"
+change_file_value "config" "BUILD_HOST" ""
 change_file_value "config" "BUILD_TARGETS" "sh-elf m68k-elf"
 change_file_value "config" "BUILD_INSTALL_DIR" "/tool-chains"
 change_file_value "config" "BUILD_SRC_DIR" "/tmp"
