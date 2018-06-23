@@ -24,7 +24,7 @@ git clone --depth=100 --branch=${TRAVIS_BRANCH} https://github.com/ijacquez/liby
 cd libyaul-build-scripts
 git checkout -q -f ${TRAVIS_COMMIT}
 
-cp config.in config.env
+cp config.in config
 
 change_file_value "config" "BUILD_HOST" ""
 change_file_value "config" "BUILD_TARGETS" "sh-elf m68k-elf"
