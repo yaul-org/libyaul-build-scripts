@@ -4,9 +4,13 @@ change_file_value() {
     local _config="${1}"
     local _variable="${2}"
     local _value="${3}"
-    sed -E -i 's/^'"${_variable}"'=\"[^\"]*\"$/'"${_variable}"'=\"'"${_value}"'\"/;' \
-              's/^'"${_variable}"'=[^\"]*$/'"${_variable}"'='"${_value}"'/g' \
-              "${_config}"
+
+    if [ -f "${_config}" ]; then
+        cat "${_config}" | sed -E 's#^'"${_variable}"'=\"[^\"]*\"$#'"${_variable}"'=\"'"${_value}"'\"#g;
+                                   s#^'"${_variable}"'=[^\"]*$#'"${_variable}"'='"${_value}"'#g' \
+                           2>&1 > "${_config}.tmp"
+        mv "${_config}.tmp" "${_config}"
+    fi
 }
 
 for var in "TRAVIS_BRANCH" "TRAVIS_COMMIT" "BUILD_TYPE"; do
@@ -20,7 +24,7 @@ pwd
 
 set -x
 
-git clone --depth=100 --branch=${TRAVIS_BRANCH} https://github.com/ijacquez/libyaul-build-scripts.git libyaul-build-scripts
+git clone --branch="${TRAVIS_BRANCH}" https://github.com/ijacquez/libyaul-build-scripts.git libyaul-build-scripts
 cd libyaul-build-scripts
 git checkout -q -f ${TRAVIS_COMMIT}
 
