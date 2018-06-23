@@ -21,8 +21,9 @@ pwd
 set -x
 
 git clone --depth=100 --branch=${TRAVIS_BRANCH} https://github.com/ijacquez/libyaul-build-scripts.git libyaul-build-scripts
-git checkout -q -f ${TRAVIS_COMMIT}
 cd libyaul-build-scripts
+git checkout -q -f ${TRAVIS_COMMIT}
+
 cp config.in config.env
 
 change_file_value "config" "BUILD_HOST" ""
