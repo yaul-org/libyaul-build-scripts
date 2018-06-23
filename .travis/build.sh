@@ -9,7 +9,7 @@ change_file_value() {
     mv "${_config}.tmp" "${_config}"
 }
 
-for var in "TRAVIS_BRANCH" "BUILD_TYPE"; do
+for var in "TRAVIS_BRANCH" "TRAVIS_COMMIT" "BUILD_TYPE"; do
     if ! set 2>&1 | grep -q -E "^${var}=.+$"; then
         printf -- "Environment variable \`${var}' was not set\n"
         exit 1
@@ -21,6 +21,7 @@ pwd
 set -x
 
 git clone --depth=100 --branch=${TRAVIS_BRANCH} https://github.com/ijacquez/libyaul-build-scripts.git libyaul-build-scripts
+git checkout -q -f ${TRAVIS_COMMIT}
 cd libyaul-build-scripts
 cp config.in config.env
 
