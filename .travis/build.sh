@@ -28,6 +28,8 @@ git clone --branch="${TRAVIS_BRANCH}" https://github.com/ijacquez/libyaul-build-
 cd libyaul-build-scripts
 git checkout -q -f ${TRAVIS_COMMIT}
 
+set +x
+
 cp config.in config
 
 change_file_value "config" "BUILD_HOST" ""
@@ -42,4 +44,15 @@ printf -- ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 cat config
 printf -- "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n"
 
-./build-compiler
+./build-compiler || {
+    find /tmp -type f -iname "*-elf.log" 2>/dev/null | while IFS= read -r path; do
+        printf -- ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
+        cat "${path}" 2>/dev/null 2>&1 | while IFS= read -r line; do
+            printf -- "${path##/tmp/}: ${line}\n"
+        done
+    done
+
+    printf -- ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
+
+    exit 1
+}
