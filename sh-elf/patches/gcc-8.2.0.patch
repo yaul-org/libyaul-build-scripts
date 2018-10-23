@@ -1,0 +1,33 @@
+--- gcc-8.2.0/gcc/config/sh/sh.h.orig	2012-06-09 13:03:03.000000000 -0700
++++ gcc-8.2.0/gcc/config/sh/sh.h	2012-06-09 13:03:11.000000000 -0700
+@@ -36,7 +36,7 @@
+    via the stack pointer) in functions that seem suitable.  */
+ 
+ #ifndef SUBTARGET_FRAME_POINTER_REQUIRED
+-#define SUBTARGET_FRAME_POINTER_REQUIRED 0
++#define SUBTARGET_FRAME_POINTER_REQUIRED 1
+ #endif
+
+ 
+--- gcc-8.2.0/gcc/config/sh/sh.c.orig	2012-06-09 13:03:03.000000000 -0700
++++ gcc-8.2.0/gcc/config/sh/sh.c	2012-06-09 13:03:11.000000000 -0700
+@@ -19,6 +19,7 @@
+ along with GCC; see the file COPYING3.  If not see
+ <http://www.gnu.org/licenses/>.  */
+ 
++#define _GNU_SOURCE
+ #include <sstream>
+ 
+ #define IN_TARGET_CODE 1
+--- gcc-8.2.0/gcc/system.h.orig	2012-06-09 13:03:03.000000000 -0700
++++ gcc-8.2.0/gcc/system.h	2012-06-09 13:03:11.000000000 -0700
+@@ -43,6 +43,9 @@
+ # include <stddef.h>
+ #endif
+ 
++#ifndef __GNU_VISIBLE
++#define __GNU_VISIBLE
++#endif
+ #include <stdio.h>
+ 
+ /* Define a generic NULL if one hasn't already been defined.  */

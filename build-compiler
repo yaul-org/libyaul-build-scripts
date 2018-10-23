@@ -350,7 +350,7 @@ BINUTILS_SIG="${BINUTILS_TARBALL}.sig"
 BINUTILS_SIG_URL="${GNU_URL}/gnu/binutils/${BINUTILS_SIG}"
 BINUTILS_SRC_DIR="binutils-${BINUTILS_VERSION}"
 
-GCC_TARBALL="gcc-${GCC_VERSION}.tar.bz2"
+GCC_TARBALL="gcc-${GCC_VERSION}.tar.gz"
 GCC_TARBALL_URL="${GNU_URL}/gnu/gcc/gcc-${GCC_VERSION}/${GCC_TARBALL}"
 GCC_SIG="${GCC_TARBALL}.sig"
 GCC_SIG_URL="${GNU_URL}/gnu/gcc/gcc-${GCC_VERSION}/${GCC_SIG}"
@@ -369,13 +369,12 @@ MPFR_SIG_URL="${GNU_URL}/gnu/mpfr/${MPFR_SIG}"
 MPFR_SRC_DIR="${GCC_SRC_DIR}/mpfr"
 
 MPC_TARBALL="mpc-${MPC_VERSION}.tar.gz"
-MPC_TARBALL_URL="${GCC_INFRASTRUCTURE_URL}/pub/gcc/infrastructure/${MPC_TARBALL}"
-MPC_MD5="md5.sum"
-MPC_RENAMED_MD5="mpc.md5.sum"
-MPC_MD5_URL="${GCC_INFRASTRUCTURE_URL}/pub/gcc/infrastructure/${MPC_MD5}"
+MPC_TARBALL_URL="${GNU_URL}/gnu/mpc/${MPC_TARBALL}"
+MPC_SIG="${MPC_TARBALL}.sig"
+MPC_SIG_URL="${GNU_URL}/gnu/mpc/${MPC_SIG}"
 MPC_SRC_DIR="${GCC_SRC_DIR}/mpc"
 
-GDB_TARBALL="gdb-${GDB_VERSION}.tar.bz2"
+GDB_TARBALL="gdb-${GDB_VERSION}.tar.gz"
 GDB_TARBALL_URL="${GNU_URL}/gnu/gdb/${GDB_TARBALL}"
 GDB_SIG="${GDB_TARBALL}.sig"
 GDB_SIG_URL="${GNU_URL}/gnu/gdb/${GDB_SIG}"
@@ -419,7 +418,7 @@ if [[ "${OPTION_DOWNLOAD_TARBALLS}" == "no" ]]; then
     printf -- "  ${MPFR_TARBALL}\n"
     printf -- "  ${MPFR_SIG}\n"
     printf -- "  ${MPC_TARBALL}\n"
-    printf -- "  ${MPC_MD5}\n"
+    printf -- "  ${MPC_SIG}\n"
     if [[ "${OPTION_BUILD_GDB}" == "yes" ]]; then
         printf -- "  ${GDB_TARBALL}\n"
         printf -- "  ${GDB_SIG}\n"
@@ -490,10 +489,10 @@ else
                 panic "Failed to download ${MPC_TARBALL} from ${MPC_TARBALL_URL} (see \`${BUILD_SRC_DIR}/mpc-download.log')" 1
             fi
         fi
-        if ! [ -f "${MPC_RENAMED_MD5}" ]; then
-            message "Downloading \`${MPC_RENAMED_MD5}'"
-            if ! fetch "${MPC_MD5_URL}" "${MPC_RENAMED_MD5}" 1>> "mpc-download.log" 2>&1; then
-                panic "Failed to download ${MPC_MD5} from ${MPC_MD5_URL}) (see \`${BUILD_SRC_DIR}/mpc-download.log')" 1
+        if ! [ -f "${MPC_SIG}" ]; then
+            message "Downloading \`${MPC_SIG}'"
+            if ! fetch "${MPC_SIG_URL}" "${MPC_SIG}" 1>> "mpc-download.log" 2>&1; then
+                panic "Failed to download ${MPC_SIG} from ${MPC_SIG_URL}) (see \`${BUILD_SRC_DIR}/mpc-download.log')" 1
             fi
         fi
 
@@ -572,8 +571,8 @@ if ! [ -f "${BUILD_STAMPS_DIR}/checked-integrity" ]; then
     if ! [ -f "${MPC_TARBALL}" ]; then
         panic "\`${MPC_TARBALL}' not found" 1
     fi
-    if ! [ -f "${MPC_RENAMED_MD5}" ]; then
-        panic "\`${MPC_RENAMED_MD5}' not found" 1
+    if ! [ -f "${MPC_SIG}" ]; then
+        panic "\`${MPC_SIG}' not found" 1
     fi
 
     if [[ "${OPTION_BUILD_GDB}" == "yes" ]]; then
@@ -618,7 +617,7 @@ if ! [ -f "${BUILD_STAMPS_DIR}/checked-integrity" ]; then
     fi
 
     message "Checking integrity of \`${MPC_TARBALL}'"
-    if ! checksum_md5 "${MPC_RENAMED_MD5}" "${MPC_TARBALL}" 1>> "mpc-download.log" 2>&1; then
+    if ! checksum_gpg "${MPC_SIG}" "${MPC_TARBALL}" 1>> "mpc-download.log" 2>&1; then
         panic "Integrity check for ${MPC_TARBALL} failed (see \`${BUILD_SRC_DIR}/mpc-download.log')" 1
     fi
 
