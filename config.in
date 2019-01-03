@@ -48,7 +48,7 @@ AWK="awk"
 FETCH="wget"
 # Currently, there is a bug in wget(1), -4 is needed. Remove if
 # wget(1) is not used
-FETCH_FLAGS="-4"
+FETCH_FLAGS="-4 --retry-on-host-error --retry-connrefused --waitretry=300"
 GPG="gpg"
 MAKE="make"
 # Uncomment the line below if on *BSD or Mac OS X
