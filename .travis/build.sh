@@ -55,5 +55,11 @@ bash -x build-compiler || {
 
     printf -- ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
 
+    for log in /tmp/*.log; do
+        cat "${log}" | while IFS= read -r line; do
+            printf -- "${log}: ${line}\n"
+        done
+    done
+
     exit 1
 }
