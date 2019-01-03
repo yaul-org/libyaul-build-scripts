@@ -125,7 +125,7 @@ function fetch() {
 
     case "${FETCH}" in
         wget)
-            "${FETCH}" "${FETCH_FLAGS}" -O "${_file}" "${_url}"
+            "${FETCH}" ${FETCH_FLAGS} -O "${_file}" "${_url}"
             local _exit_code=${?}
 
             # Kludge: It looks like GNU Wget doesn't return the
@@ -137,7 +137,7 @@ function fetch() {
             return 0
             ;;
         *)
-            "${FETCH}" "${FETCH_FLAGS}" "${_url}"
+            "${FETCH}" ${FETCH_FLAGS} "${_url}"
 
             return ${_exit_code}
     esac
