@@ -433,79 +433,103 @@ else
 
         if ! [ -f "${BINUTILS_TARBALL}" ]; then
             message "Downloading \`${BINUTILS_TARBALL}'"
-            if ! fetch "${BINUTILS_TARBALL_URL}" "${BINUTILS_TARBALL}" 1>> "binutils-download.log" 2>&1; then
-                panic "Failed to download ${BINUTILS_TARBALL} from ${BINUTILS_TARBALL_URL} (see \`${BUILD_SRC_DIR}/binutils-download.log')" 1
+            fetch "${BINUTILS_TARBALL_URL}" "${BINUTILS_TARBALL}" 1>> "binutils-download.log" 2>&1
+            error_code=${?}
+            if ! [ ${error_code} -eq 0 ]; then
+                panic "Failed to download ${BINUTILS_TARBALL} from ${BINUTILS_TARBALL_URL} (error code #${error_code}) (see \`${BUILD_SRC_DIR}/binutils-download.log')" 1
             fi
         fi
         if ! [ -f "${BINUTILS_SIG}" ]; then
             message "Downloading \`${BINUTILS_SIG}'"
-            if ! fetch "${BINUTILS_SIG_URL}" "${BINUTILS_SIG}" 1>> "binutils-download.log" 2>&1; then
-                panic "Failed to download ${BINUTILS_SIG} (see \`${BUILD_SRC_DIR}/binutils-download.log')" 1
+            fetch "${BINUTILS_SIG_URL}" "${BINUTILS_SIG}" 1>> "binutils-download.log" 2>&1
+            error_code=${?}
+            if ! [ ${error_code} -eq 0 ]; then
+                panic "Failed to download ${BINUTILS_SIG} (error code #${error_code}) (see \`${BUILD_SRC_DIR}/binutils-download.log')" 1
             fi
         fi
 
         if ! [ -f "${GCC_TARBALL}" ]; then
             message "Downloading \`${GCC_TARBALL}'"
-            if ! fetch "${GCC_TARBALL_URL}" "${GCC_TARBALL}" 1>> "gcc-download.log" 2>&1; then
-                panic "Failed to download ${GCC_TARBALL} from ${GCC_TARBALL_URL} (see \`${BUILD_SRC_DIR}/gcc-download.log')" 1
+            fetch "${GCC_TARBALL_URL}" "${GCC_TARBALL}" 1>> "gcc-download.log" 2>&1
+            error_code=${?}
+            if ! [ ${error_code} -eq 0 ]; then
+                panic "Failed to download ${GCC_TARBALL} from ${GCC_TARBALL_URL} (error code #${error_code}) (see \`${BUILD_SRC_DIR}/gcc-download.log')" 1
             fi
         fi
         if ! [ -f "${GCC_SIG}" ]; then
             message "Downloading \`${GCC_SIG}'"
-            if ! fetch "${GCC_SIG_URL}" "${GCC_SIG}" 1>> "gcc-download.log" 2>&1; then
-                panic "Failed to download ${GCC_SIG} from ${GCC_SIG_URL}) (see \`${BUILD_SRC_DIR}/gcc-download.log')" 1
+            fetch "${GCC_SIG_URL}" "${GCC_SIG}" 1>> "gcc-download.log" 2>&1
+            error_code=${?}
+            if ! [ ${error_code} -eq 0 ]; then
+                panic "Failed to download ${GCC_SIG} from ${GCC_SIG_URL}) (error code #${error_code}) (see \`${BUILD_SRC_DIR}/gcc-download.log')" 1
             fi
         fi
 
         if ! [ -f "${GMP_TARBALL}" ]; then
             message "Downloading \`${GMP_TARBALL}'"
-            if ! fetch "${GMP_TARBALL_URL}" "${GMP_TARBALL}" 1>> "gmp-download.log" 2>&1; then
-                panic "Failed to download ${GMP_TARBALL} from ${GMP_TARBALL_URL} (see \`${BUILD_SRC_DIR}/gmp-download.log')" 1
+            fetch "${GMP_TARBALL_URL}" "${GMP_TARBALL}" 1>> "gmp-download.log" 2>&1
+            error_code=${?}
+            if ! [ ${error_code} -eq 0 ]; then
+                panic "Failed to download ${GMP_TARBALL} from ${GMP_TARBALL_URL} (error code #${error_code}) (see \`${BUILD_SRC_DIR}/gmp-download.log')" 1
             fi
         fi
         if ! [ -f "${GMP_SIG}" ]; then
             message "Downloading \`${GMP_SIG}'"
-            if ! fetch "${GMP_SIG_URL}" "${GMP_SIG}" 1>> "gmp-download.log" 2>&1; then
-                panic "Failed to download ${GMP_SIG} from ${GMP_SIG_URL}) (see \`${BUILD_SRC_DIR}/gmp-download.log')" 1
+            fetch "${GMP_SIG_URL}" "${GMP_SIG}" 1>> "gmp-download.log" 2>&1
+            error_code=${?}
+            if ! [ ${error_code} -eq 0 ]; then
+                panic "Failed to download ${GMP_SIG} from ${GMP_SIG_URL}) (error code #${error_code}) (see \`${BUILD_SRC_DIR}/gmp-download.log')" 1
             fi
         fi
 
         if ! [ -f "${MPFR_TARBALL}" ]; then
             message "Downloading \`${MPFR_TARBALL}'"
-            if ! fetch "${MPFR_TARBALL_URL}" "${MPFR_TARBALL}" 1>> "mpfr-download.log" 2>&1; then
-                panic "Failed to download ${MPFR_TARBALL} from ${MPFR_TARBALL_URL} (see \`${BUILD_SRC_DIR}/mpfr-download.log')" 1
+            fetch "${MPFR_TARBALL_URL}" "${MPFR_TARBALL}" 1>> "mpfr-download.log" 2>&1
+            error_code=${?}
+            if ! [ ${error_code} -eq 0 ]; then
+                panic "Failed to download ${MPFR_TARBALL} from ${MPFR_TARBALL_URL} (error code #${error_code}) (see \`${BUILD_SRC_DIR}/mpfr-download.log')" 1
             fi
         fi
         if ! [ -f "${MPFR_SIG}" ]; then
             message "Downloading \`${MPFR_SIG}'"
-            if ! fetch "${MPFR_SIG_URL}" "${MPFR_SIG}" 1>> "mpfr-download.log" 2>&1; then
-                panic "Failed to download ${MPFR_SIG} from ${MPFR_SIG_URL}) (see \`${BUILD_SRC_DIR}/mpfr-download.log')" 1
+            fetch "${MPFR_SIG_URL}" "${MPFR_SIG}" 1>> "mpfr-download.log" 2>&1
+            error_code=${?}
+            if ! [ ${error_code} -eq 0 ]; then
+                panic "Failed to download ${MPFR_SIG} from ${MPFR_SIG_URL}) (error code #${error_code}) (see \`${BUILD_SRC_DIR}/mpfr-download.log')" 1
             fi
         fi
 
         if ! [ -f "${MPC_TARBALL}" ]; then
             message "Downloading \`${MPC_TARBALL}'"
-            if ! fetch "${MPC_TARBALL_URL}" "${MPC_TARBALL}" 1>> "mpc-download.log" 2>&1; then
-                panic "Failed to download ${MPC_TARBALL} from ${MPC_TARBALL_URL} (see \`${BUILD_SRC_DIR}/mpc-download.log')" 1
+            fetch "${MPC_TARBALL_URL}" "${MPC_TARBALL}" 1>> "mpc-download.log" 2>&1
+            error_code=${?}
+            if ! [ ${error_code} -eq 0 ]; then
+                panic "Failed to download ${MPC_TARBALL} from ${MPC_TARBALL_URL} (error code #${error_code}) (see \`${BUILD_SRC_DIR}/mpc-download.log')" 1
             fi
         fi
         if ! [ -f "${MPC_SIG}" ]; then
             message "Downloading \`${MPC_SIG}'"
-            if ! fetch "${MPC_SIG_URL}" "${MPC_SIG}" 1>> "mpc-download.log" 2>&1; then
-                panic "Failed to download ${MPC_SIG} from ${MPC_SIG_URL}) (see \`${BUILD_SRC_DIR}/mpc-download.log')" 1
+            fetch "${MPC_SIG_URL}" "${MPC_SIG}" 1>> "mpc-download.log" 2>&1
+            error_code=${?}
+            if ! [ ${error_code} -eq 0 ]; then
+                panic "Failed to download ${MPC_SIG} from ${MPC_SIG_URL}) (error code #${error_code}) (see \`${BUILD_SRC_DIR}/mpc-download.log')" 1
             fi
         fi
 
         if [[ "${OPTION_BUILD_GDB}" == "yes" ]]; then
             if ! [ -f "${GDB_TARBALL}" ]; then
                 message "Downloading \`${GDB_TARBALL}'"
-                if ! fetch "${GDB_TARBALL_URL}" "${GDB_TARBALL}" 1>> "gdb-download.log" 2>&1; then
-                    panic "Failed to download ${GDB_TARBALL} from ${GDB_TARBALL_URL} (see \`${BUILD_SRC_DIR}/gdb-download.log')" 1
+                fetch "${GDB_TARBALL_URL}" "${GDB_TARBALL}" 1>> "gdb-download.log" 2>&1
+                error_code=${?}
+                if ! [ ${error_code} -eq 0 ]; then
+                    panic "Failed to download ${GDB_TARBALL} from ${GDB_TARBALL_URL} (error code #${error_code}) (see \`${BUILD_SRC_DIR}/gdb-download.log')" 1
                 fi
             fi
             if ! [ -f "${GDB_SIG}" ]; then
-                if ! fetch "${GDB_SIG_URL}" "${GDB_SIG}" 1>> "gdb-download.log" 2>&1; then
-                    panic "Failed to download ${GDB_SIG} from ${GDB_SIG_URL} (see \`${BUILD_SRC_DIR}/gdb-download.log')" 1
+                fetch "${GDB_SIG_URL}" "${GDB_SIG}" 1>> "gdb-download.log" 2>&1
+                error_code=${?}
+                if ! [ ${error_code} -eq 0 ]; then
+                    panic "Failed to download ${GDB_SIG} from ${GDB_SIG_URL} (error code #${error_code}) (see \`${BUILD_SRC_DIR}/gdb-download.log')" 1
                 fi
             fi
         fi
@@ -513,21 +537,27 @@ else
         if [[ "${OPTION_BUILD_MAKE}" == "yes" ]]; then
             if ! [ -f "${MAKE_TARBALL}" ]; then
                 message "Downloading \`${MAKE_TARBALL}'"
-                if ! fetch "${MAKE_TARBALL_URL}" "${MAKE_TARBALL}" 1>> "make-download.log" 2>&1; then
-                    panic "Failed to download ${MAKE_TARBALL} from ${MAKE_TARBALL_URL} (see \`${BUILD_SRC_DIR}/make-download.log')" 1
+                fetch "${MAKE_TARBALL_URL}" "${MAKE_TARBALL}" 1>> "make-download.log" 2>&1
+                error_code=${?}
+                if ! [ ${error_code} -eq 0 ]; then
+                    panic "Failed to download ${MAKE_TARBALL} from ${MAKE_TARBALL_URL} (error code #${error_code}) (see \`${BUILD_SRC_DIR}/make-download.log')" 1
                 fi
             fi
             if ! [ -f "${MAKE_SIG}" ]; then
-                if ! fetch "${MAKE_SIG_URL}" "${MAKE_SIG}" 1>> "make-download.log" 2>&1; then
-                    panic "Failed to download ${MAKE_SIG} from ${MAKE_SIG_URL} (see \`${BUILD_SRC_DIR}/make-download.log')" 1
+                fetch "${MAKE_SIG_URL}" "${MAKE_SIG}" 1>> "make-download.log" 2>&1
+                error_code=${?}
+                if ! [ ${error_code} -eq 0 ]; then
+                    panic "Failed to download ${MAKE_SIG} from ${MAKE_SIG_URL} (error code #${error_code}) (see \`${BUILD_SRC_DIR}/make-download.log')" 1
                 fi
             fi
         fi
 
         if ! [ -f "${GNU_KEYRING}" ]; then
             message "Downloading \`${GNU_KEYRING}'"
-            if ! fetch "${GNU_KEYRING_URL}" "${GNU_KEYRING}" 1>> "gcc-download.log" 2>&1; then
-                panic "Failed to download ${GNU_KEYRING} from ${GNU_KEYRING_URL} (see \`${BUILD_SRC_DIR}/gcc-download.log')" 1
+            fetch "${GNU_KEYRING_URL}" "${GNU_KEYRING}" 1>> "gcc-download.log" 2>&1
+            error_code=${?}
+            if ! [ ${error_code} -eq 0 ]; then
+                panic "Failed to download ${GNU_KEYRING} from ${GNU_KEYRING_URL} (error code #${error_code}) (see \`${BUILD_SRC_DIR}/gcc-download.log')" 1
             fi
         fi
 
