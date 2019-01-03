@@ -44,7 +44,8 @@ printf -- ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 cat config
 printf -- "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n"
 
-./build-compiler || {
+# For debugging purposes
+bash -x build-compiler || {
     find /tmp -type f -iname "*-elf.log" 2>/dev/null | while IFS= read -r path; do
         printf -- ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
         cat "${path}" 2>/dev/null 2>&1 | while IFS= read -r line; do
