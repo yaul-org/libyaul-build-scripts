@@ -26,6 +26,8 @@ set -x
 
 export TMP_DIR="/tmp/build-`date '+%s-%d-%m-%Y'`"
 
+mkdir -p "${TMP_DIR}"
+
 git clone --branch="${TRAVIS_BRANCH}" https://github.com/ijacquez/libyaul-build-scripts.git libyaul-build-scripts
 cd libyaul-build-scripts
 git checkout -q -f ${TRAVIS_COMMIT}
@@ -57,7 +59,7 @@ bash -x build-compiler || {
 
     printf -- ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
 
-    for log in /tmp/*.log; do
+    for log in "${TMP_DIR}"/*.log; do
         cat "${log}" | while IFS= read -r line; do
             printf -- "%s\n" "${log}: ${line}"
         done
