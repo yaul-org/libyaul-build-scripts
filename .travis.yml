@@ -9,4 +9,4 @@ addons:
   apt:
     update: true
 
-script: travis_wait 120 bash -e /root/build.sh
+script: travis_wait 120 bash -e .travis/build.sh
