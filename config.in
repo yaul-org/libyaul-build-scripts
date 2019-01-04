@@ -7,8 +7,8 @@
 # Israel Jacquez <mrkotfw@gmail.com>
 
 # Do not modify, unless you know what you're doing
-GNU_URL="ftp://ftp.gnu.org/"
-GCC_INFRASTRUCTURE_URL="ftp://gcc.gnu.org/"
+GNU_URL="http://ftp.gnu.org/"
+GCC_INFRASTRUCTURE_URL="http://gcc.gnu.org/"
 
 # Build host, where the toolchain will be executed. Leave blank if
 # unsure
