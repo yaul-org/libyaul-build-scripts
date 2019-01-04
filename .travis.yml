@@ -2,13 +2,11 @@ sudo: required
 
 language: c
 
-services:
-  - docker
-
 before_script:
-  - docker pull ijacquez/libyaul-tool-chain:1.3
+  - sudo apt-get install -y p7zip wget git make gcc unzip zip diffutils dos2unix patch tar gawk
 
-script:
-  - docker run --name "container" -e "TRAVIS_BRANCH=${TRAVIS_BRANCH}" -e "TRAVIS_COMMIT=${TRAVIS_COMMIT}" -e "BUILD_TYPE=${BUILD_TYPE}" -t -d ijacquez/libyaul-tool-chain:1.3 bash
-  - docker cp .travis/build.sh container:/root/build.sh
-  - travis_wait 120 docker exec container sh -e /root/build.sh
+addons:
+  apt:
+    update: true
+
+script: travis_wait 120 bash -e /root/build.sh
