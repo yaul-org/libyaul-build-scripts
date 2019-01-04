@@ -11,4 +11,4 @@ before_script:
 script:
   - docker run --name "container" -e "TRAVIS_BRANCH=${TRAVIS_BRANCH}" -e "TRAVIS_COMMIT=${TRAVIS_COMMIT}" -e "BUILD_TYPE=${BUILD_TYPE}" -t -d ijacquez/libyaul-tool-chain:1.3 bash
   - docker cp .travis/build.sh container:/root/build.sh
-  - docker exec container sh -e /root/build.sh
+  - travis_wait 120 docker exec container sh -e /root/build.sh
