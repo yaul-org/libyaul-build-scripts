@@ -3,7 +3,7 @@ sudo: required
 language: c
 
 before_script:
-  - sudo apt-get install -y p7zip wget git make gcc unzip zip diffutils dos2unix patch tar gawk
+  - sudo apt-get install -y wget make gcc diffutils patch tar gawk bzip2 build-essentials libncurses5-dev texinfo
 
 addons:
   apt:
