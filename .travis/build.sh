@@ -13,7 +13,7 @@ change_file_value() {
     fi
 }
 
-for var in "TRAVIS_BRANCH" "TRAVIS_COMMIT" "BUILD_TYPE"; do
+for var in "TRAVIS_BRANCH" "TRAVIS_COMMIT"; do
     if ! set 2>&1 | grep -q -E "^${var}=.+$"; then
         printf -- "Environment variable \`${var}' was not set\n"
         exit 1
