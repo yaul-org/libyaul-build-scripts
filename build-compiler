@@ -150,17 +150,9 @@ function checksum_gpg() {
 
     # The path to the keyring must be relative or absolute. Otherwise,
     # it's assume to be in ~/.gnupg/
-    if ! [ -e "./${GNU_KEYRING}" ]; then
-        return 1
-    fi
-
-    pwd
-    ls -l
-    file "./${GNU_KEYRING}"
-    cat "./${GNU_KEYRING}"
-
-    "${GPG}" --verify --keyring "./${GNU_KEYRING}" "${_file}"
+    "${GPG}" --verify --keyring "${BUILD_SRC_DIR}/${GNU_KEYRING}" "${_file}"
     local _exit_code=${?}
+
     return ${_exit_code}
 }
 

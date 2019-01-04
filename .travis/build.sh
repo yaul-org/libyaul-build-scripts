@@ -24,6 +24,8 @@ pwd
 
 set -x
 
+export TMP_DIR="/tmp/build-`date '+%s-%d-%m-%Y'`"
+
 git clone --branch="${TRAVIS_BRANCH}" https://github.com/ijacquez/libyaul-build-scripts.git libyaul-build-scripts
 cd libyaul-build-scripts
 git checkout -q -f ${TRAVIS_COMMIT}
@@ -35,7 +37,7 @@ cp config.in config
 change_file_value "config" "BUILD_HOST" ""
 change_file_value "config" "BUILD_TARGETS" "sh-elf m68k-elf"
 change_file_value "config" "BUILD_INSTALL_DIR" "/tool-chains"
-change_file_value "config" "BUILD_SRC_DIR" "/tmp"
+change_file_value "config" "BUILD_SRC_DIR" "${TMP_DIR}"
 change_file_value "config" "OPTION_DOWNLOAD_TARBALLS" "yes"
 change_file_value "config" "OPTION_BUILD_GDB" "no"
 change_file_value "config" "OPTION_BUILD_MAKE" "no"
