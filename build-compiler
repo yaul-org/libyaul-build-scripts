@@ -155,8 +155,9 @@ function checksum_gpg() {
     fi
 
     pwd
-
+    ls -l
     file "./${GNU_KEYRING}"
+    cat "./${GNU_KEYRING}"
 
     "${GPG}" --verify --keyring "./${GNU_KEYRING}" "${_file}"
     local _exit_code=${?}
