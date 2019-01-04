@@ -22,17 +22,9 @@ done
 
 pwd
 
-set -x
-
 export TMP_DIR="/tmp/build-`date '+%s-%d-%m-%Y'`"
 
 mkdir -p "${TMP_DIR}"
-
-git clone --branch="${TRAVIS_BRANCH}" https://github.com/ijacquez/libyaul-build-scripts.git libyaul-build-scripts
-cd libyaul-build-scripts
-git checkout -q -f ${TRAVIS_COMMIT}
-
-set +x
 
 cp config.in config
 
