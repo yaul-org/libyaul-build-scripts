@@ -33,8 +33,8 @@ change_file_value "config" "BUILD_TARGETS" "sh-elf m68k-elf"
 change_file_value "config" "BUILD_INSTALL_DIR" "/tool-chains"
 change_file_value "config" "BUILD_SRC_DIR" "${TMP_DIR}"
 change_file_value "config" "OPTION_DOWNLOAD_TARBALLS" "yes"
-change_file_value "config" "OPTION_BUILD_GDB" "no"
-change_file_value "config" "OPTION_BUILD_MAKE" "no"
+change_file_value "config" "OPTION_BUILD_GDB" "yes"
+change_file_value "config" "OPTION_BUILD_MAKE" "yes"
 
 printf -- ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
 cat config
