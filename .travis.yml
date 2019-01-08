@@ -2,8 +2,9 @@ sudo: required
 
 language: c
 
-matrix:
-  - BUILD_HOST="x86_64-w64-mingw32" OPTION_BUILD_GDB="no" OPTION_BUILD_MAKE="no"
+env:
+  matrix:
+    - BUILD_HOST="x86_64-w64-mingw32" OPTION_BUILD_GDB="no" OPTION_BUILD_MAKE="no"
 
 before_script:
   - sudo apt-get install -y wget make diffutils patch tar gawk bzip2 libncurses5-dev texinfo
