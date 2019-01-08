@@ -13,7 +13,7 @@ change_file_value() {
     fi
 }
 
-for var in "TRAVIS_BRANCH" "TRAVIS_COMMIT"; do
+for var in "TRAVIS_BRANCH" "TRAVIS_COMMIT" "BUILD_HOST" "OPTION_BUILD_GDB" "OPTION_BUILD_MAKE"; do
     if ! set 2>&1 | grep -q -E "^${var}=.+$"; then
         printf -- "Environment variable \`${var}' was not set\n"
         exit 1
@@ -28,13 +28,13 @@ mkdir -p "${TMP_DIR}"
 
 cp config.in config
 
-change_file_value "config" "BUILD_HOST" ""
+change_file_value "config" "BUILD_HOST" "${BUILD_HOST}"
 change_file_value "config" "BUILD_TARGETS" "sh-elf m68k-elf"
 change_file_value "config" "BUILD_INSTALL_DIR" "/tool-chains"
 change_file_value "config" "BUILD_SRC_DIR" "${TMP_DIR}"
 change_file_value "config" "OPTION_DOWNLOAD_TARBALLS" "yes"
-change_file_value "config" "OPTION_BUILD_GDB" "yes"
-change_file_value "config" "OPTION_BUILD_MAKE" "yes"
+change_file_value "config" "OPTION_BUILD_GDB" "${OPTION_BUILD_GDB}"
+change_file_value "config" "OPTION_BUILD_MAKE" "${OPTION_BUILD_MAKE}"
 
 printf -- ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
 cat config
