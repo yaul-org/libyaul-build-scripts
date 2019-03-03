@@ -712,4 +712,9 @@ done
 if ! [ -f "${BUILD_STAMPS_DIR}/make-completed-build" ]; then
     build_target "make"
 fi
+
+# Install RTags specific files to ${BUILD_INSTALL_DIR}
+message "Install RTags scripts"
+install -m 755 "rtags/sh-elf-rdm" "${BUILD_INSTALL_DIR}/${target}/bin"
+install -m 755 "rtags/sh-elf-rc" "${BUILD_INSTALL_DIR}/${target}/bin"
 }

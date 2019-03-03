@@ -1,0 +1,63 @@
+#!/bin/bash
+
+# -*- mode: sh -*-
+
+PROGNAME="${0##*/}"
+
+# Strip trailing '/'s
+case ${1} in
+    *[!/]*) BUILD_ROOT=${1%"${1##*[!/]}"};;
+    *[/]) BUILD_ROOT="/";;
+esac
+
+RTAGS_BUILD_PATH="${BUILD_ROOT##*/}/.rtags"
+RTAGS_SOCKET="rtags.socket"
+
+if [ -z "${BUILD_ROOT}" ]; then
+    printf -- "${PROGNAME}: Error: Undefined BUILD_ROOT (build root directory)\n" >&2
+    exit 2
+fi
+
+if [ -z "${YAUL_INSTALL_ROOT}" ]; then
+    printf -- "${PROGNAME}: Error: Undefined YAUL_INSTALL_ROOT (install root directory)\n" >&2
+    exit 2
+fi
+
+if ! command -v "rdm" >/dev/null; then
+    printf -- "${PROGNAME}: Error: executable \`rdm' not found in \${PATH}\n" >&2
+    exit 1
+fi
+
+if ! command -v "rc" >/dev/null; then
+    printf -- "${PROGNAME}: Error: executable \`rc' not found in \${PATH}\n" >&2
+    exit 1
+fi
+
+if [ -z "${YAUL_RTAGS}" ]; then
+    printf -- "${PROGNAME}: Error: RTags support is disabled. Set \${YAUL_RTAGS} to \`true'\n" >&2
+    exit 1
+fi
+
+mkdir -p "${RTAGS_BUILD_PATH}" >/dev/null 2>&1
+mkdir -p "${RTAGS_BUILD_PATH##*/}/cache" >/dev/null 2>&1
+
+if ! [ -d "${RTAGS_BUILD_PATH}" ]; then
+    printf -- "${PROGNAME}: Error: RTags directory \`${RTAGS_BUILD_PATH}' cannot be created\n" >&2
+    exit 1
+fi
+
+GCC_VERSION=`${YAUL_INSTALL_ROOT}/sh-elf/bin/sh-elf-gcc --version | awk '/^sh-elf-gcc/ { print $3 }'`
+
+if [ -z "${GCC_VERSION}" ]; then
+    printf -- "${PROGNAME}: Error: Cannot defer SH-2 GCC version\n" >&2
+    exit 1
+fi
+
+exec rdm \
+     --data-dir "${RTAGS_BUILD_PATH##*/}/cache" \
+     --socket-file "${RTAGS_BUILD_PATH##*/}/${RTAGS_SOCKET}" \
+     --log-file-log-level verbose-debug \
+     --no-comments \
+     --no-libclang-include-path \
+     --isystem "${YAUL_INSTALL_ROOT}/sh-elf/lib/gcc/sh-elf/${GCC_VERSION}/include" \
+     --isystem "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include"

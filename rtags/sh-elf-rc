@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# -*- mode: sh -*-
+
+PROGNAME="${0##*/}"
+
+case ${1} in
+    *[!/]*) BUILD_ROOT=${1%"${1##*[!/]}"};;
+    *[/]) BUILD_ROOT="/";;
+esac
+
+RTAGS_BUILD_PATH="${BUILD_ROOT##*/}/.rtags"
+RTAGS_SOCKET="rtags.socket"
+
+if [ -z "${BUILD_ROOT}" ]; then
+    printf -- "${PROGNAME}: Error: Undefined BUILD_ROOT (build root directory)\n" >&2
+    exit 2
+fi
+
+if [ -n "${YAUL_RTAGS}" ]; then
+    if ! command -v "rc" >/dev/null; then
+        mkdir -p "${RTAGS_BUILD_PATH}"
+
+        if test -d "${RTAGS_BUILD_PATH}"; then
+            rc --project-root "${BUILD_ROOT}" --socket-file "${RTAGS_BUILD_PATH}/${RTAGS_SOCKET}" --wait --compile "${@}"
+        fi
+    fi
+fi
+
+shift
+compiler="${1}"
+
+if [ -z "${compiler}" ]; then
+    exit 0
+fi
+
+shift
+exec "${compiler}" ${@}
