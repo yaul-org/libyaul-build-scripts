@@ -9,7 +9,7 @@ case ${1} in
     *[/]) BUILD_ROOT="/";;
 esac
 
-RTAGS_BUILD_PATH="${BUILD_ROOT##*/}/.rtags"
+RTAGS_BUILD_PATH="${BUILD_ROOT%*/}/.rtags"
 RTAGS_SOCKET="rtags.socket"
 
 if [ -z "${BUILD_ROOT}" ]; then
@@ -18,10 +18,8 @@ if [ -z "${BUILD_ROOT}" ]; then
 fi
 
 if [ -n "${YAUL_RTAGS}" ]; then
-    if ! command -v "rc" >/dev/null; then
-        mkdir -p "${RTAGS_BUILD_PATH}"
-
-        if test -d "${RTAGS_BUILD_PATH}"; then
+    if command -v "rc" >/dev/null; then
+        if [ -d "${RTAGS_BUILD_PATH}" ]; then
             rc --project-root "${BUILD_ROOT}" --socket-file "${RTAGS_BUILD_PATH}/${RTAGS_SOCKET}" --wait --compile "${@}"
         fi
     fi

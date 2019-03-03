@@ -10,13 +10,13 @@ case ${1} in
     *[/]) BUILD_ROOT="/";;
 esac
 
-RTAGS_BUILD_PATH="${BUILD_ROOT##*/}/.rtags"
-RTAGS_SOCKET="rtags.socket"
-
 if [ -z "${BUILD_ROOT}" ]; then
-    printf -- "${PROGNAME}: Error: Undefined BUILD_ROOT (build root directory)\n" >&2
+    printf -- "${PROGNAME}: Error: Undefined RTAGS_BUILD_ROOT (build root directory)\n" >&2
     exit 2
 fi
+
+RTAGS_BUILD_PATH="${BUILD_ROOT%*/}/.rtags"
+RTAGS_SOCKET="rtags.socket"
 
 if [ -z "${YAUL_INSTALL_ROOT}" ]; then
     printf -- "${PROGNAME}: Error: Undefined YAUL_INSTALL_ROOT (install root directory)\n" >&2
@@ -39,7 +39,7 @@ if [ -z "${YAUL_RTAGS}" ]; then
 fi
 
 mkdir -p "${RTAGS_BUILD_PATH}" >/dev/null 2>&1
-mkdir -p "${RTAGS_BUILD_PATH##*/}/cache" >/dev/null 2>&1
+mkdir -p "${RTAGS_BUILD_PATH%*/}/cache" >/dev/null 2>&1
 
 if ! [ -d "${RTAGS_BUILD_PATH}" ]; then
     printf -- "${PROGNAME}: Error: RTags directory \`${RTAGS_BUILD_PATH}' cannot be created\n" >&2
@@ -54,8 +54,8 @@ if [ -z "${GCC_VERSION}" ]; then
 fi
 
 exec rdm \
-     --data-dir "${RTAGS_BUILD_PATH##*/}/cache" \
-     --socket-file "${RTAGS_BUILD_PATH##*/}/${RTAGS_SOCKET}" \
+     --data-dir "${RTAGS_BUILD_PATH%*/}/cache" \
+     --socket-file "${RTAGS_BUILD_PATH%*/}/${RTAGS_SOCKET}" \
      --log-file-log-level verbose-debug \
      --no-comments \
      --no-libclang-include-path \
