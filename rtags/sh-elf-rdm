@@ -16,7 +16,8 @@ if [ -z "${BUILD_ROOT}" ]; then
 fi
 
 RTAGS_BUILD_PATH="${BUILD_ROOT%*/}/.rtags"
-RTAGS_SOCKET="rtags.socket"
+RTAGS_SOCKET="rdm.socket"
+RTAGS_LOG="rdm.log"
 
 if [ -z "${YAUL_INSTALL_ROOT}" ]; then
     printf -- "${PROGNAME}: Error: Undefined YAUL_INSTALL_ROOT (install root directory)\n" >&2
@@ -53,11 +54,37 @@ if [ -z "${GCC_VERSION}" ]; then
     exit 1
 fi
 
+# Kludge: Because our custom GCC specs file specifies the include
+#         paths, Clang doesn't know about them:
+#
+#         The clang driver has no direct correspondent for
+#         "specs". The best next solution is to manually include theme
+#         here
 exec rdm \
      --data-dir "${RTAGS_BUILD_PATH%*/}/cache" \
      --socket-file "${RTAGS_BUILD_PATH%*/}/${RTAGS_SOCKET}" \
+     --log-file "${RTAGS_BUILD_PATH%*/}/${RTAGS_LOG}" \
+     --silent \
      --log-file-log-level verbose-debug \
-     --no-comments \
+     --max-include-completion-depth 100 \
      --no-libclang-include-path \
      --isystem "${YAUL_INSTALL_ROOT}/sh-elf/lib/gcc/sh-elf/${GCC_VERSION}/include" \
-     --isystem "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include"
+     --include-path "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include" \
+     --include-path "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include/bcl" \
+     --include-path "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include/tga" \
+     --include-path "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include/yaul" \
+     --include-path "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include/yaul/common" \
+     --include-path "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include/yaul/dbgio" \
+     --include-path "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include/yaul/math" \
+     --include-path "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include/yaul/lib" \
+     --include-path "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include/yaul/fs/iso9660" \
+     --include-path "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include/yaul/fs/romdisk" \
+     --include-path "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include/yaul/scu" \
+     --include-path "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include/yaul/scu/bus/a/cs0/arp" \
+     --include-path "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include/yaul/scu/bus/a/cs0/dram-cart" \
+     --include-path "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include/yaul/scu/bus/a/cs0/usb-cart" \
+     --include-path "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include/yaul/scu/bus/a/cs2/cd-block" \
+     --include-path "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include/yaul/scu/bus/b/scsp" \
+     --include-path "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include/yaul/scu/bus/b/vdp" \
+     --include-path "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include/yaul/scu/bus/cpu" \
+     --include-path "${YAUL_INSTALL_ROOT}/sh-elf/sh-elf/include/yaul/scu/bus/cpu/smpc"

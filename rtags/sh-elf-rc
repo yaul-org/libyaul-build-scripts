@@ -10,7 +10,7 @@ case ${1} in
 esac
 
 RTAGS_BUILD_PATH="${BUILD_ROOT%*/}/.rtags"
-RTAGS_SOCKET="rtags.socket"
+RTAGS_SOCKET="rdm.socket"
 
 if [ -z "${BUILD_ROOT}" ]; then
     printf -- "${PROGNAME}: Error: Undefined BUILD_ROOT (build root directory)\n" >&2
