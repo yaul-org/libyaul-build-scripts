@@ -21,6 +21,7 @@ fi
 
 RTAGS_BUILD_PATH="${RTAGS_BUILD_ROOT%*/}/.rtags"
 RTAGS_LOG="rdm.log"
+RTAGS_SOCKET="${RTAGS_BUILD_PATH}/rdm.socket"
 
 # If empty, default to YAUL_ARCH_SH_PREFIX
 # If empty, default to YAUL_ARCH_SH_PREFIX
@@ -61,6 +62,7 @@ fi
 
 RDM_ARGS=(--data-dir "${RTAGS_BUILD_PATH%*/}/cache" \
     --silent \
+    --socket-file "${RTAGS_SOCKET}" \
     --log-file "${RTAGS_BUILD_PATH%*/}/${RTAGS_LOG}" \
     --log-file-log-level verbose-debug \
     --max-include-completion-depth 100 \
