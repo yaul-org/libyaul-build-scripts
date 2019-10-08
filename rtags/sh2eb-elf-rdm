@@ -40,8 +40,10 @@ SH_CC_VERSION=`${SH_CC} --version | grep '^'${YAUL_ARCH_SH_PREFIX}'-gcc' | sed '
 [ -n "${YAUL_CDB}" ] || panic "RTags support is disabled. Set \${YAUL_CDB} to \`true'" 1
 
 # Obtain path of `rdm' executable. If YAUL_CDB_RDM_PATH is not set, the
+RC=`command -v "rc" 2>/dev/null || printf -- "${YAUL_CDB_RC_PATH}"`
 RDM=`command -v "rdm" 2>/dev/null || printf -- "${YAUL_CDB_RDM_PATH}"`
 
+([ -f "${RC}" ] && [ -x "${RC}" ]) || panic "Executable \`rc' not found in \${PATH} or \${YAUL_CDB_RC_PATH}" 1
 ([ -f "${RDM}" ] && [ -x "${RDM}" ]) || panic "Executable \`rdm' not found in \${PATH} or \${YAUL_CDB_RDM_PATH}" 1
 
 if ! mkdir -p "${RTAGS_BUILD_PATH}" >/dev/null 2>&1; then
@@ -60,6 +62,9 @@ if ! [ -d "${YAUL_INSTALL_ROOT}/lib/gcc/${YAUL_PROG_SH_PREFIX}/${SH_CC_VERSION}/
     panic "Cannot defer SH-2 GCC version from ${SH_CC}" 1
 fi
 
+RC_ARGS=(--silent \
+    --socket-file "${RTAGS_SOCKET}" -J)
+
 RDM_ARGS=(--data-dir "${RTAGS_BUILD_PATH%*/}/cache" \
     --silent \
     --socket-file "${RTAGS_SOCKET}" \
@@ -74,5 +79,14 @@ RDM_ARGS=(--data-dir "${RTAGS_BUILD_PATH%*/}/cache" \
 #
 #         The clang driver has no direct correspondent for
 #         "specs".
-set -x
-exec ${RDM} "${RDM_ARGS[@]}"
+${RDM} "${RDM_ARGS[@]}" &
+rdm_pid=${!}
+
+# Force index
+(while ! ps ${rdm_pid} >/dev/null; do
+     :
+ done
+ cd ${RTAGS_BUILD_ROOT}
+ ${RC} "${RC_ARGS[@]}" --load-compile-commands)
+
+wait ${rdm_pid}
