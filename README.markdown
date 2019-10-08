@@ -7,13 +7,15 @@ Build scripts for Yaul.
 
 ### SH-2
 
-| Name of config                                | Description                                                        | Currently available? |
-|:----------------------------------------------|:-------------------------------------------------------------------|:---------------------|
-| `sh2eb-elf/native.config`                     | Build a native cross-compiler targeting SH-2                       | Yes                  |
-| `sh2eb-elf/host-x86-w32-mingw32.config`       | Build a host `x86-w32-mingw32` cross-compiler targeting SH-2       | Yes                  |
-| `sh2eb-elf/host-x86_64-w64-mingw32.config`    | Build a host `x86_64-w64-mingw32` cross-compiler targeting SH-2    | No                   |
-| `sh2eb-elf/host-x86-unknown-cygwin.config`    | Build a host `x86-unknown-cygwin` cross-compiler targeting SH-2    | No                   |
-| `sh2eb-elf/host-x86_64-unknown-cygwin.config` | Build a host `x86_64-unknown-cygwin` cross-compiler targeting SH-2 | No                   |
+| Platform         | Configuration file                            | Currently available? |
+|------------------|-----------------------------------------------|----------------------|
+| Native           | `sh2eb-elf/native.config`                     | Yes                  |
+| Linux            | `sh2eb-elf/host-i686-pc-linux-gnu.confg`      | Yes                  |
+| Windows (MinGW)  | `sh2eb-elf/host-i686-w64-mingw32.config`      | Yes                  |
+| Windows (MinGW)  | `sh2eb-elf/host-x86_64-w64-mingw32.config`    | Yes                  |
+| Windows (Cygwin) | `sh2eb-elf/host-x86-unknown-cygwin.config`    | No                   |
+| Windows (Cygwin) | `sh2eb-elf/host-x86_64-unknown-cygwin.config` | No                   |
+| Mac OS X         | `sh2eb-elf/host-x86_64-apple-darwin*.config`  | No                   |
 
 ### M68k
 
