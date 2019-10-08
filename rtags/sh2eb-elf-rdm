@@ -38,8 +38,10 @@ SH_CC_VERSION=`${SH_CC} --version | grep '^'${YAUL_ARCH_SH_PREFIX}'-gcc' | sed '
 [ -x "${SH_CC}" ] || panic "Invalid executable \`${SH_CC}'" 1
 [ -n "${YAUL_CDB}" ] || panic "RTags support is disabled. Set \${YAUL_CDB} to \`true'" 1
 
-command -v "rdm" >/dev/null || panic "Executable \`rdm' not found in \${PATH}" 1
-command -v "rc" >/dev/null || panic "Executable \`rc' not found in \${PATH}" 1
+# Obtain path of `rdm' executable. If YAUL_CDB_RDM_PATH is not set, the
+RDM=`command -v "rdm" 2>/dev/null || printf -- "${YAUL_CDB_RDM_PATH}"`
+
+([ -f "${RDM}" ] && [ -x "${RDM}" ]) || panic "Executable \`rdm' not found in \${PATH} or \${YAUL_CDB_RDM_PATH}" 1
 
 if ! mkdir -p "${RTAGS_BUILD_PATH}" >/dev/null 2>&1; then
     panic "RTags directory \`${RTAGS_BUILD_PATH}' cannot be created" 1
@@ -70,4 +72,5 @@ RDM_ARGS=(--data-dir "${RTAGS_BUILD_PATH%*/}/cache" \
 #
 #         The clang driver has no direct correspondent for
 #         "specs".
-exec rdm ${RDM_ARGS[@]}
+set -x
+exec ${RDM} "${RDM_ARGS[@]}"
