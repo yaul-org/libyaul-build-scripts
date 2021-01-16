@@ -53,10 +53,6 @@ cd crosstool-ng
 ./bootstrap
 ./configure --enable-local
 make
-
-cd ..
-cp sh2eb-elf/native.config .config
-crosstool/ct-ng build
 ```
 
 ### FreeBSD
@@ -75,8 +71,13 @@ PATCH=/usr/local/bin/gpatch \
 ./configure --enable-local
 
 gmake
+```
 
+### Build tool-chain
+
+```
 cd ..
 cp sh2eb-elf/native.config .config
 crosstool/ct-ng build
+find ~/x-tools/x -type d -exec chmod u+w '{}' \;
 ```
