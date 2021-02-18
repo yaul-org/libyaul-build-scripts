@@ -84,7 +84,6 @@ gmake
 
 ```
 cd ..
-cp sh2eb-elf/native.config .config
+cp sh2eb-elf/<file>.config .config
 crosstool/ct-ng build
-find ~/x-tools/x -type d -exec chmod u+w '{}' \;
 ```
