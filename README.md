@@ -23,6 +23,15 @@ _Currently unavailable._
 
 ## Build requirements
 
+### Debian based
+
+```
+apt install \
+  binutils-mingw-w64-x86-64 \
+  gcc-mingw-w64-x86-64 \
+  g++-mingw-w64-x86-64
+```
+
 ### FreeBSD
 
 ```
