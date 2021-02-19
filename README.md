@@ -12,7 +12,7 @@ Build scripts for Yaul.
 | Linux            | `sh2eb-elf/native-linux.config`               | Native   | Yes        |
 | MacOS X          | `sh2eb-elf/native-macosx.config`              | Native   | Yes        |
 | Linux            | `sh2eb-elf/host-i686-pc-linux-gnu.confg`      | Canadian | Yes        |
-| MacOS X          | `sh2eb-elf/host-x86_64-apple-darwin*.config`  | Canadian | No         |
+| MacOS X          | `sh2eb-elf/host-x86_64-apple-darwin.config`   | Canadian | No         |
 | Windows (MinGW)  | `sh2eb-elf/host-x86_64-w64-mingw32.config`    | Canadian | Yes        |
 | Windows (Cygwin) | `sh2eb-elf/host-x86_64-unknown-cygwin.config` | Canadian | No         |
 
