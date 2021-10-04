@@ -26,9 +26,17 @@ _Currently unavailable._
 
 ```
 apt install \
-  binutils-mingw-w64-x86-64 \
-  gcc-mingw-w64-x86-64 \
-  g++-mingw-w64-x86-64
+  texinfo \
+  help2man \
+  curl \
+  lzip \
+  meson \
+  ninja-build \
+  mawk/gawk \
+  libtool-bin \
+  ncurses-dev \
+  flex \
+  bison
 ```
 
 ### FreeBSD
