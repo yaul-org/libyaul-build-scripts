@@ -23,7 +23,8 @@ _Currently unavailable._
 
 ## Build requirements
 
-### Debian based / WSL2 Ubuntu
+<details>
+  <summary>Debian based and WSL2 Ubuntu</summary>
 
 ```
 apt install \
@@ -40,7 +41,10 @@ apt install \
   bison
 ```
 
-### FreeBSD
+</details>
+
+<details>
+  <summary>FreeBSD</summary>
 
 ```
 pkg install \
@@ -57,9 +61,12 @@ pkg install \
   unix2dos
 ```
 
+</details>
+
 ## Build `crosstool-ng`
 
-### Linux
+<details>
+  <summary>Linux</summary>
 
 ```
 git submodule init
@@ -71,7 +78,11 @@ cd crosstool-ng
 make
 ```
 
-### Windows (WSL2)
+</details>
+
+<details>
+  <summary>Windows (WSL2)</summary>
+
 ```
 git submodule init
 git submodule update
@@ -83,7 +94,10 @@ make
 sudo bash -c "echo 0 > /proc/sys/fs/binfmt_misc/status"
 ```
 
-### FreeBSD
+</details>
+
+<details>
+  <summary>FreeBSD</summary>
 
 ```
 git submodule init
@@ -101,7 +115,9 @@ PATCH=/usr/local/bin/gpatch \
 gmake
 ```
 
-### Build tool-chain
+</details>
+
+## Build tool-chain
 
 ```
 cd ..
