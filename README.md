@@ -7,15 +7,15 @@ Build scripts for Yaul.
 
 ### SH-2
 
-| Platform         | Configuration file                            | Type     | Available? |
-|------------------|-----------------------------------------------|----------|------------|
-| Linux            | `sh2eb-elf/native-linux.config`               | Native   | Yes        |
-| MacOS X          | `sh2eb-elf/native-macosx.config`              | Native   | Yes        |
-| Linux            | `sh2eb-elf/host-i686-pc-linux-gnu.confg`      | Canadian | Yes        |
-| MacOS X          | `sh2eb-elf/host-x86_64-apple-darwin.config`   | Canadian | No         |
-| Windows (MinGW)  | `sh2eb-elf/host-x86_64-w64-mingw32.config`    | Canadian | Yes        |
-| Windows (Cygwin) | `sh2eb-elf/host-x86_64-unknown-cygwin.config` | Canadian | No         |
-| Windows (WSL2)   | `sh2eb-elf/host-x86_64-w64-mingw32.config`    | Canadian | Yes        |
+| Platform         | Configuration file                            | Build type | Working? | GCC version |
+|------------------|-----------------------------------------------|------------|----------|-------------|
+| Linux            | `sh2eb-elf/native-linux.config`               | Native     | Yes      | 11.2.0      |
+| Linux            | `sh2eb-elf/host-i686-pc-linux-gnu.confg`      | Canadian   | Yes      | 8.4.0       |
+| MacOS X          | `sh2eb-elf/native-macosx.config`              | Native     | Yes      | 8.4.0       |
+| MacOS X          | `sh2eb-elf/host-x86_64-apple-darwin.config`   | Canadian   | No       |             |
+| Windows (MinGW)  | `sh2eb-elf/host-x86_64-w64-mingw32.config`    | Canadian   | Yes      |             |
+| Windows (WSL2)   | `sh2eb-elf/host-x86_64-w64-mingw32.config`    | Canadian   | Yes      | 11.2.0      |
+| Windows (Cygwin) | `sh2eb-elf/host-x86_64-unknown-cygwin.config` | Canadian   | No       |             |
 
 ### M68k
 
