@@ -122,5 +122,5 @@ gmake
 ```
 cd ..
 cp sh2eb-elf/<file>.config .config
-crosstool/ct-ng build
+crosstool-ng/ct-ng build
 ```
