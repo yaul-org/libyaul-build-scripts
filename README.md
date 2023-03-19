@@ -21,7 +21,10 @@ Build scripts for Yaul.
 
 _Currently unavailable._
 
-## Build requirements
+
+## Building
+
+### Build requirements
 
 <details>
   <summary>Debian based and WSL2 Ubuntu</summary>
@@ -63,7 +66,7 @@ pkg install \
 
 </details>
 
-## Build `crosstool-ng`
+### Build `crosstool-ng`
 
 <details>
   <summary>Linux</summary>
@@ -117,7 +120,7 @@ gmake
 
 </details>
 
-## Build tool-chain
+### Build the `sh2eb-elf-` tool-chain
 
 ```
 cd ..
