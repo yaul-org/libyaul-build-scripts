@@ -37,7 +37,7 @@ apt install \
   lzip \
   meson \
   ninja-build \
-  mawk/gawk \
+  gawk \
   libtool-bin \
   ncurses-dev \
   flex \
