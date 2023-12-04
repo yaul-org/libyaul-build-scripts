@@ -7,15 +7,12 @@ Build scripts for Yaul.
 
 ### SH-2
 
-| Platform         | Configuration file                            | Build type | Working? | GCC version |
-|------------------|-----------------------------------------------|------------|----------|-------------|
-| Linux            | `sh2eb-elf/native-linux.config`               | Native     | Yes      | 13.2.0      |
-| Linux            | `sh2eb-elf/host-i686-pc-linux-gnu.config`     | Canadian   | Yes      | 13.2.0      |
-| MacOS X          | `sh2eb-elf/native-macosx.config`              | Native     | Yes      | 13.2.0      |
-| MacOS X          | `sh2eb-elf/host-x86_64-apple-darwin.config`   | Canadian   | No       |             |
-| Windows (MinGW)  | `sh2eb-elf/host-x86_64-w64-mingw32.config`    | Canadian   | Yes      |             |
-| Windows (WSL2)   | `sh2eb-elf/host-x86_64-w64-mingw32.config`    | Canadian   | Yes      | 13.2.0      |
-| Windows (Cygwin) | `sh2eb-elf/host-x86_64-unknown-cygwin.config` | Canadian   | No       |             |
+| Platform         | Configuration file                            | Build type | Working? |
+|------------------|-----------------------------------------------|------------|----------|
+| Linux            | `sh2eb-elf/native-linux.config`               | Native     | Yes      |
+| Linux            | `sh2eb-elf/host-i686-pc-linux-gnu.config`     | Canadian   | Yes      |
+| Windows (MinGW)  | `sh2eb-elf/host-x86_64-w64-mingw32.config`    | Canadian   | Yes      |
+| Windows (WSL2)   | `sh2eb-elf/host-x86_64-w64-mingw32.config`    | Canadian   | Yes      |
 
 ### M68k
 
