@@ -57,7 +57,10 @@ pkg install \
   bison \
   coreutils \
   gmake \
-  unix2dos
+  unix2dos \
+  patch \
+  gcc \
+  lzip
 ```
 
 </details>
