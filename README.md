@@ -7,12 +7,12 @@ Build scripts for Yaul.
 
 ### SH-2
 
-| Platform         | Configuration file                            | Build type | Working? |
-|------------------|-----------------------------------------------|------------|----------|
-| Linux            | `sh2eb-elf/native-linux.config`               | Native     | Yes      |
-| Linux            | `sh2eb-elf/host-i686-pc-linux-gnu.config`     | Canadian   | Yes      |
-| Windows (MinGW)  | `sh2eb-elf/host-x86_64-w64-mingw32.config`    | Canadian   | Yes      |
-| Windows (WSL2)   | `sh2eb-elf/host-x86_64-w64-mingw32.config`    | Canadian   | Yes      |
+| Platform        | Configuration file                         | Build type | Working? |
+|-----------------|--------------------------------------------|------------|----------|
+| Linux           | `sh2eb-elf/native.config`                  | Native     | Yes      |
+| Linux           | `sh2eb-elf/host-i686-pc-linux-gnu.config`  | Canadian   | Yes      |
+| Windows (MinGW) | `sh2eb-elf/host-x86_64-w64-mingw32.config` | Canadian   | Yes      |
+| Windows (WSL2)  | `sh2eb-elf/host-x86_64-w64-mingw32.config` | Canadian   | Yes      |
 
 ### M68k
 
