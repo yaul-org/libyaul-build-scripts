@@ -1,4 +1,7 @@
-.build/
-.config
-.config.*
-*.log
+/.build/
+/.config
+/.config.old
+/build.log
+
+# Not clear as to why this is showing up
+/include/
